@@ -74,8 +74,44 @@ public class Heap <T>{
 			shiftUp(newNode);
 		}
 	}
+	
+	private Node<T> PrintNode(Node<T> root, String branchRoute) {
+	    if (branchRoute.isEmpty()) {
+	        return root;
+	    }
+	    var node = (branchRoute.charAt(0) == '0') ? root.getLeft() : root.getRigth();
+	    if (node == null) {
+	        return null;
+	    }
+	    return PrintNode(node, branchRoute.substring(1));
+	}
+	
+	public void printTree() {
+	    for (int i = 1; i <= sizeTree; i++) {
+	        var binary = Integer.toBinaryString(i);
+	        var branchRoute = binary.substring(1);
+	        var node = PrintNode(root, branchRoute);
+	        if (node != null) {
+	            System.out.println(node.getValue().toString());
+	        }
+	    }
+	}
+	
+	private void shiftDown(Node<T> current) {
+	    while (current.getLeft() != null) {
+	        Node<T> minChild = current.getLeft();
+	        if (current.getRigth() != null && ((Patients) current.getRigth().getValue()).compareTo((Patients) minChild.getValue()) < 0) {
+	            minChild = current.getRigth();
+	        }
+	        if (((Patients) current.getValue()).compareTo((Patients) minChild.getValue()) <= 0) {
+	            break;
+	        }
+	        swap(current, minChild);
+	        current = minChild;
+	    }
+	}
+	
 	public T getFirst() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
