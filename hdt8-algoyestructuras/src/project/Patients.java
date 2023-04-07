@@ -1,3 +1,9 @@
+/**
+ * UNIVERSIDAD DEL VALLE DE GUATEMALA
+ * @author Eunice Mata - 21231
+ * Object that simulates the patient for the list heap, it will be inserted as value for the node
+ */
+
 package project;
 
 public class Patients implements Comparable<Patients>{

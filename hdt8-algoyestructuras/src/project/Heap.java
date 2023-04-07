@@ -1,3 +1,10 @@
+/**
+ * UNIVERSIDAD DEL VALLE DE GUATEMALA
+ * @author Eunice Mata - 21231
+ * Object that simulates the heap or list that will order the patients
+ * It took an ass long time to read all my ss
+ */
+
 package project;
 
 public class Heap <T>{
@@ -5,15 +12,29 @@ public class Heap <T>{
 	private int sizeTree;
 	private Node<T> root;
 	
+	/**
+	 * Method to get the parent of the current node
+	 * @param current node that we need to know its parent 
+	 * @return Node with the parent
+	 */
 	private Node<T> getParent(Node<T> current){
 		return current.getParent();
 	}
+	/**
+	 * Method that switches of  position two nodes
+	 * @param a node to swap for b
+	 * @param b node to swap for a
+	 */
 	private void swap(Node a,Node b) {
 		T temp = (T) a.getValue();
 		a.setValue(b.getValue());
 		b.setValue(temp);
 	}
 	
+	/**
+	 * Method that gets the route where its needed to add the node/patient
+	 * @return String branchRoute whit the route
+	 */
 	private String route() {
 		var size = sizeTree;
 		var position = size + 1;
@@ -23,6 +44,13 @@ public class Heap <T>{
 		return branchRoute;
 	}
 	
+	/**
+	 * Method that simulates de insertion of a new node/patient
+	 * @param root Node that is the root/parent of our new node
+	 * @param route String with the brancRoute where is needed to be added the node/patient
+	 * @param value type T or patient to add to the tree
+	 * @return Node
+	 */
 	private Node<T> insert(Node<T> root, String route, T value){
 		var nextNode = "" + route.charAt(0);
 		if(route.length() > 1) {
@@ -48,14 +76,18 @@ public class Heap <T>{
 	    return newNode;
 	}
 	
+	/**
+	 * Method that simulates the shift up of the nodes
+	 * @param current is the node/patient that will mode the rest
+	 */
 	private void shiftUp(Node<T> current) {
-	    Patients currentVal = (Patients) current.getValue();
+	    Patients currentValue = (Patients) current.getValue();
 
 	    while (current != root) {
 	        Node<T> parent = current.getParent();
-	        Patients parentVal = (Patients) parent.getValue();
+	        Patients parentValue = (Patients) parent.getValue();
 
-	        if (currentVal.compareTo(parentVal) < 0) {
+	        if (currentValue.compareTo(parentValue) < 0) {
 	            swap(parent, current);
 	            current = parent;
 	        } else {
@@ -63,40 +95,11 @@ public class Heap <T>{
 	        }
 	    }
 	}
-	public void insert(T value) {
-		if(root == null) {
-			root = new Node<T>(value,null);
-			this.sizeTree = 1;
-		}
-		else {
-			var branchR = route();
-			var newNode = insert(root, branchR,value);
-			shiftUp(newNode);
-		}
-	}
-	
-	private Node<T> PrintNode(Node<T> root, String branchRoute) {
-	    if (branchRoute.isEmpty()) {
-	        return root;
-	    }
-	    var node = (branchRoute.charAt(0) == '0') ? root.getLeft() : root.getRigth();
-	    if (node == null) {
-	        return null;
-	    }
-	    return PrintNode(node, branchRoute.substring(1));
-	}
-	
-	public void printTree() {
-	    for (int i = 1; i <= sizeTree; i++) {
-	        var binary = Integer.toBinaryString(i);
-	        var branchRoute = binary.substring(1);
-	        var node = PrintNode(root, branchRoute);
-	        if (node != null) {
-	            System.out.println(node.getValue().toString());
-	        }
-	    }
-	}
-	
+
+	/**
+	 * Method that simulates the shift down of the nodes
+	 * @param current is the node/patient that will mode the rest
+	 */
 	private void shiftDown(Node<T> current) {
 	    while (current.getLeft() != null) {
 	        Node<T> minChild = current.getLeft();
@@ -111,10 +114,65 @@ public class Heap <T>{
 	    }
 	}
 	
+	/**
+	 * Method that will simulate the addition of a new node/patient to the tree
+	 * @param value T in this case the patient to add to the tree
+	 */
+	public void insert(T value) {
+		if(root == null) {
+			root = new Node<T>(value,null);
+			this.sizeTree = 1;
+		}
+		else {
+			var branchR = route();
+			var newNode = insert(root, branchR,value);
+			shiftUp(newNode);
+		}
+	}
+	
+	/**
+	 * Method that will print the nood and all others under them
+	 * @param root
+	 * @param branchRoute
+	 * @return
+	 */
+	private Node<T> PrintNode(Node<T> root, String branchRoute) {
+	    if (branchRoute.isEmpty()) {
+	        return root;
+	    }
+	    var node = (branchRoute.charAt(0) == '0') ? root.getLeft() : root.getRigth();
+	    if (node == null) {
+	        return null;
+	    }
+	    return PrintNode(node, branchRoute.substring(1));
+	}
+	
+	/**
+	 * Methos tha will print the entire tree
+	 */
+	public void printTree() {
+	    for (int i = 1; i <= sizeTree; i++) {
+	        var binary = Integer.toBinaryString(i);
+	        var branchRoute = binary.substring(1);
+	        var node = PrintNode(root, branchRoute);
+	        if (node != null) {
+	            System.out.println(node.getValue().toString());
+	        }
+	    }
+	}
+	
+	/**
+	 * Method that will get the root
+	 * @return the root node
+	 */
 	public Node<T> getFirst() {
 		return root;
 	}
 
+	/**
+	 * Method that will remove a node/patient and make the rest to move their new positions
+	 * @return
+	 */
 	public T remove() {
 	    if (root == null) {
 	        System.out.println("La cola esta vacia");
@@ -140,6 +198,10 @@ public class Heap <T>{
 	    return rootValue;
 	}
 
+	/**
+	 * Methods that will get the last Node in the tree
+	 * @return
+	 */
 	private Node<T> getLastNode() {
 	    if (root == null) {
 	        return null;

@@ -1,3 +1,9 @@
+/**
+ * UNIVERSIDAD DEL VALLE DE GUATEMALA
+ * @author Eunice Mata - 21231
+ * Object that simulates the Node for the heap
+ */
+
 package project;
 
 public class Node<T> {
