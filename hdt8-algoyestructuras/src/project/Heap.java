@@ -111,33 +111,87 @@ public class Heap <T>{
 	    }
 	}
 	
-	public T getFirst() {
-		return null;
+	public Node<T> getFirst() {
+		return root;
 	}
 
 	public T remove() {
-		// TODO Auto-generated method stub
-		return null;
+	    if (root == null) {
+	        System.out.println("La cola ahora esta vacia");
+	        return null;
+	    }
+	    
+	    T rootValue = root.getValue();
+	    Node<T> lastNode = getLastNode();
+	    
+	    if (lastNode == root) {
+	        root = null;
+	    } else {
+	        root.setValue(lastNode.getValue());
+	        if (lastNode.getParent().getLeft() == lastNode) {
+	            lastNode.getParent().setLeft(null);
+	        } else {
+	            lastNode.getParent().setRigth(null);
+	        }
+	        shiftDown(root);
+	    }
+	    
+	    sizeTree = sizeTree-1;
+	    return rootValue;
 	}
 
+	private Node<T> getLastNode() {
+	    if (root == null) {
+	        return null;
+	    }
+	    
+	    int binarySize = Integer.toBinaryString(sizeTree).length() - 1;
+	    String binaryString = Integer.toBinaryString(sizeTree);
+	    
+	    Node<T> current = root;
+	    for (int i = 1; i <= binarySize; i++) { // iterate to binarySize instead of binarySize - 1
+	        if (binaryString.charAt(i) == '0') {
+	            current = current.getLeft();
+	        } else {
+	            current = current.getRigth();
+	        }
+	    }
+	    return current;
+	}
+	
 	public void add(T value) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		if(sizeTree > 1)
+			return true;
+		else
+			return false;
 	}
 
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.sizeTree;
 	}
 
 	public void clear() {
 		// TODO Auto-generated method stub
 		
 	}
+	public int getSizeTree() {
+		return sizeTree;
+	}
+	public void setSizeTree(int sizeTree) {
+		this.sizeTree = sizeTree;
+	}
+	public Node<T> getRoot() {
+		return root;
+	}
+	public void setRoot(Node<T> root) {
+		this.root = root;
+	}
+	
+	
 
 }
