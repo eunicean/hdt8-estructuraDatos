@@ -86,6 +86,12 @@ public class main {
 
 					break;
 				case 3:
+					System.out.println("------ Paciente atendido ------ \n" + listado.peek().toString());
+					listado.poll();
+					Iterator meh = listado.iterator();
+			        while (meh.hasNext()) {
+			            System.out.println(meh.next());
+			        }
 					break;
 				case 4:
 					stillMenu = false;
