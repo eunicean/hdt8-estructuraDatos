@@ -1,25 +1,18 @@
 package project;
 
 public class Node<T> {
-	protected int priority;
 	protected T value;
 	Node<T> parent;
 	Node<T> left;
 	Node<T> rigth;
 	
-	public Node(int priority, T value, Node<T> parent) {
-		this.priority = priority;
+	public Node(T value, Node<T> parent) {
 		this.value = value;
 		this.parent = parent;
 		this.left = null;
 		this.rigth = null;
 	}
-	public int getPriority() {
-		return priority;
-	}
-	public void setPriority(int priority) {
-		this.priority = priority;
-	}
+	
 	public T getValue() {
 		return value;
 	}
