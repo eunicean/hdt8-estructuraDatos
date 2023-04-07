@@ -176,9 +176,8 @@ public class Heap <T>{
 	}
 
 	public void clear() {
-		// TODO Auto-generated method stub
-		
 	}
+	
 	public int getSizeTree() {
 		return sizeTree;
 	}
