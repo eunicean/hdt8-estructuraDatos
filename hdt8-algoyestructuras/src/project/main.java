@@ -12,12 +12,98 @@ public class main {
 		System.out.println();
 		int op1 = 0;
 		
-		System.out.println("Elija una implementacion de Heap: \n 1. Custom Heap (mio :D) \n 2. Priority Queue JavaFramework");
+		System.out.println("Elija una implementacion de Heap: \n 1. Custom Heap (mio :D) \n 2. Priority Queue JavaFramework\n");
 		op1 = tec.nextInt();
+		
+		String menu = "Elija una accion: \n 1. Ver listado \n 2. Ingresar Paciente \n 3. Atender Paciente con mayor prioridad \n 4. Salir\n";
+		boolean stillMenu = true;
+
+		String name = "";
+		String reason = "";
+		String priority = "";
+		if(op1 == 1) {
+			Heap<Patients> listado = customHeap();
+			while(stillMenu) {
+				System.out.println(menu);
+				int op2 = tec.nextInt();
+				switch (op2) {
+				case 1:
+					listado.printTree();
+					break;
+				case 2:
+
+					System.out.println("Ingrese el nombre\n");
+					name = tec.nextLine();
+					System.out.println("Ingrese la rason de hospitaliazcion\n");
+					reason = tec.nextLine();
+					System.out.println("Ingrese la prioridad de atencion\n");
+					priority = tec.nextLine();
+					
+					listado.insert(new Patients(name, reason, priority));
+
+					listado.printTree();
+					break;
+				case 3:
+					listado.printTree();
+					listado.remove();
+					listado.printTree();
+					break;
+				case 4:
+					stillMenu = false;
+					break;
+
+				default:
+					System.out.println("Elija una de las opciones disponibles");
+					break;
+				}
+			}
+		}
+		else if(op1 == 2) {
+			PriorityQueue<Patients> listado = JavaFrameworksHeap();
+			while(stillMenu) {
+				System.out.println(menu);
+				int op2 = tec.nextInt();
+				switch (op2) {
+				case 1:
+					System.out.println("Priority queue: ");
+					
+					Iterator iterador = listado.iterator();
+					 
+			        while (iterador.hasNext()) {
+			            System.out.println(iterador.next());
+			        }
+				
+					break;
+				case 2:
+					System.out.println("Ingrese el nombre\n");
+					name = tec.nextLine();
+					System.out.println("Ingrese la rason de hospitaliazcion\n");
+					reason = tec.nextLine();
+					System.out.println("Ingrese la prioridad de atencion\n");
+					priority = tec.nextLine();
+					
+					listado.add(new Patients(name, reason, priority));
+
+					break;
+				case 3:
+					break;
+				case 4:
+					stillMenu = false;
+					break;
+
+				default:
+					System.out.println("Elija una de las opciones disponibles");
+					break;
+				}
+			}
+		}
+		else {
+			System.out.println("No selecciono una de las opciones disponibles");
+		}
 		
 	}
 	
-	public Heap customHeap() {
+	public static Heap customHeap() {
 		Heap<Patients> Tree = new Heap();
 		try {
 			File myFile = new File("datos.txt");
@@ -41,7 +127,7 @@ public class main {
 		return Tree;
 	}
 	
-	public PriorityQueue JavaFrameworksHeap() {
+	public static PriorityQueue JavaFrameworksHeap() {
 		PriorityQueue<Patients> Tree = new PriorityQueue();
 		try {
 			File myFile = new File("datos.txt");

@@ -117,7 +117,7 @@ public class Heap <T>{
 
 	public T remove() {
 	    if (root == null) {
-	        System.out.println("La cola ahora esta vacia");
+	        System.out.println("La cola esta vacia");
 	        return null;
 	    }
 	    
